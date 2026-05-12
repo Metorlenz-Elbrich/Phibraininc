@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Sora, JetBrains_Mono } from "next/font/google";
+import { headers } from "next/headers";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { siteConfig } from "@/lib/site";
@@ -128,6 +129,11 @@ const jsonLd = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // The CSP nonce is generated per-request by `middleware.ts` and forwarded
+  // via the `x-nonce` request header. Applying it to our inline JSON-LD
+  // <script> is required so the strict, nonce-based CSP doesn't block it.
+  const nonce = headers().get("x-nonce") ?? undefined;
+
   return (
     <html
       lang="en"
@@ -148,6 +154,7 @@ export default function RootLayout({
         <Footer />
         <script
           type="application/ld+json"
+          nonce={nonce}
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
