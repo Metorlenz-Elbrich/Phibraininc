@@ -34,8 +34,9 @@ export default function FeaturedWork() {
               className={cn(i === 0 ? "lg:col-span-2" : "")}
             >
               <Link
-                href={`/portfolio#${p.slug}`}
-                className="group relative block overflow-hidden rounded-3xl border border-black/[0.06] bg-white/60 backdrop-blur-xl transition-all hover:-translate-y-0.5 hover:shadow-elevation-3 dark:border-white/[0.06] dark:bg-ink-900/60"
+                href={`/portfolio/${p.slug}`}
+                aria-label={`${p.shortTitle} — read the case study`}
+                className="group relative block overflow-hidden rounded-3xl border border-black/[0.06] bg-white/60 backdrop-blur-xl transition-all hover:-translate-y-0.5 hover:shadow-elevation-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background dark:border-white/[0.06] dark:bg-ink-900/60"
               >
                 <div className="grid gap-6 p-6 md:grid-cols-12 md:p-8">
                   <div className="md:col-span-5">

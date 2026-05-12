@@ -1,0 +1,190 @@
+================================================================================
+PHIBRAIN WEBSITE — CLICKABLE / INTERACTIVE ELEMENTS INVENTORY
+================================================================================
+
+Format:
+  [type]  label                                  → destination / action
+  type    = link | button | input | submit | select | checkbox | accordion | a11y
+
+
+================================================================================
+GLOBAL (rendered on every page)
+================================================================================
+
+ROOT LAYOUT  (app/layout.tsx)
+  a11y    "Skip to content"                       → #main  (visible on focus only)
+
+NAVBAR  (components/layout/Navbar.tsx)
+  link    PhiBrain logo                            → /
+  link    Home                                     → /
+  link    About                                    → /about
+  link    Services                                 → /services
+  link    Portfolio                                → /portfolio
+  link    Contact                                  → /contact
+  link    "Start a project" (CTA, desktop ≥ md)    → /contact
+  button  Mobile menu toggle (hamburger, < lg)     → opens MobileMenu
+
+MOBILE MENU  (components/layout/MobileMenu.tsx)
+  button  Open / Close icon (hamburger / X)        → toggle drawer
+  button  Backdrop tap                             → closes drawer
+  button  Close X (top right)                      → closes drawer
+  link    PhiBrain logo                            → /
+  link    Home                                     → /
+  link    About                                    → /about
+  link    Services                                 → /services
+  link    Portfolio                                → /portfolio
+  link    Contact                                  → /contact
+  link    "Start a project" (CTA, full width)      → /contact
+
+FOOTER  (components/layout/Footer.tsx)
+  link    PhiBrain logo                            → /
+  link    hello@phibrain.com                       → mailto:hello@phibrain.com
+  link    About                                    → /about
+  link    Services                                 → /services
+  link    Portfolio                                → /portfolio
+  link    Contact                                  → /contact
+  link    Web applications                         → /services#web
+  link    Mobile apps                              → /services#mobile
+  link    UI/UX design                             → /services#design
+  link    API engineering                          → /services#api
+  link    Cloud platforms                          → /services#cloud
+  link    Process                                  → /#process
+  link    FAQ                                      → /#faq
+  link    Brand assets                             → /phibrain-logo.svg
+  link    LinkedIn (icon)                          → https://www.linkedin.com/company/phibrain
+  link    GitHub (icon)                            → https://github.com/phibraininc
+  link    Twitter / X (icon)                       → https://twitter.com/phibrain
+
+
+================================================================================
+HOME PAGE  (app/page.tsx)
+================================================================================
+
+HERO  (components/sections/Hero.tsx)
+  link    "Start a project" (primary, xl)          → /contact
+  link    "See our work" (outline, xl)             → /portfolio
+
+SERVICES SHOWCASE — home variant (6 cards + 1 more)
+  Each card is presentational (no link). The final tile is clickable:
+  link    "See all services"                       → /services
+
+FEATURED WORK  (components/sections/FeaturedWork.tsx)
+  link    Project card: Orbit — Investment dashboard → /portfolio#orbit-fintech
+  link    Project card: Atlas — Global logistics    → /portfolio#atlas-logistics
+  link    Project card: Clinique — Patient platform → /portfolio#clinique-healthcare
+  link    "Browse all projects"                     → /portfolio
+
+FAQ  (components/sections/FAQ.tsx)  — Radix Accordion (single, collapsible)
+  accordion  "How does an engagement with PhiBrain start?"
+  accordion  "Can you work with our existing engineering team?"
+  accordion  "What does pricing look like?"
+  accordion  "Do you handle hosting, deployment and maintenance?"
+  accordion  "How do you handle security and compliance?"
+  accordion  "Do you sign NDAs?"
+
+CTA SECTION  (components/sections/CTASection.tsx)
+  link    "Start a project" (primary, xl)          → /contact
+  link    "Browse our work" (ghost, xl)            → /portfolio
+
+
+================================================================================
+ABOUT PAGE  (app/about/page.tsx)
+================================================================================
+
+  (Reuses) CTA SECTION
+  link    "Start a project"                        → /contact
+  link    "Browse our work"                        → /portfolio
+
+
+================================================================================
+SERVICES PAGE  (app/services/page.tsx)
+================================================================================
+
+SERVICES SHOWCASE — full variant (7 cards)
+  Each service card is presentational (anchor ids exposed):
+  #web, #mobile, #design, #api, #cloud, #modernization, #support
+
+  (Reuses) PROCESS                                 — purely visual
+  (Reuses) TECHNOLOGIES                            — purely visual
+  (Reuses) CTA SECTION
+  link    "Start a project"                        → /contact
+  link    "Browse our work"                        → /portfolio
+
+
+================================================================================
+PORTFOLIO PAGE  (app/portfolio/page.tsx)
+================================================================================
+
+PROJECT CARDS — presentational on this page (no link), each has a scroll-anchor id:
+  #orbit-fintech     Orbit — Investment dashboard
+  #atlas-logistics   Atlas — Global logistics
+  #clinique-healthcare  Clinique — Patient platform
+  #vela-ecommerce    Vela — Luxury commerce ecosystem
+  #domaine-realestate  Domaine — Real estate intelligence
+  #lumen-saas        Lumen — SaaS admin platform
+
+  (Reuses) CTA SECTION
+  link    "Start a project"                        → /contact
+  link    "Browse our work"                        → /portfolio
+
+
+================================================================================
+CONTACT PAGE  (app/contact/page.tsx + components/ContactForm.tsx)
+================================================================================
+
+CONTACT FORM — fields & controls
+  input     Name              (text, required, maxLength 80,  autoComplete=name)
+  input     Email             (email, required, maxLength 254, autoComplete=email)
+  input     Company           (text, optional, maxLength 120, autoComplete=organization)
+  select    Budget            (options below, optional)
+              - Under $25k
+              - $25k – $50k
+              - $50k – $150k
+              - $150k+
+              - Not sure yet
+  input     Message           (textarea, required, min 20 / max 4000 chars)
+  checkbox  "I agree to PhiBrain processing my message…" (required)
+  link      "privacy policy"  (anchor)              → #privacy
+  submit    "Send message"    (primary button)      → POST /api/contact
+  button    "Send another message" (on success)     → resets form to idle
+
+  Hidden anti-spam controls (not user-clickable):
+  hidden    _hp (honeypot)
+  hidden    csrf (mirrors csrf-token cookie)
+
+SIDEBAR
+  link      hello@phibrain.com                     → mailto:hello@phibrain.com
+  link      LinkedIn (icon)                        → siteConfig.social.linkedin
+  link      GitHub (icon)                          → siteConfig.social.github
+  link      Twitter (icon)                         → siteConfig.social.twitter
+  link      hello@phibrain.com (in privacy notice) → mailto:hello@phibrain.com
+
+
+================================================================================
+404 PAGE  (app/not-found.tsx)
+================================================================================
+  link    "Back to home" (primary)                 → /
+  link    "Contact us"   (outline)                 → /contact
+
+
+================================================================================
+GLOBAL ERROR BOUNDARY  (app/error.tsx)
+================================================================================
+  button  "Try again"    (primary)                 → calls reset()
+  link    "Back to home" (outline)                 → /
+
+
+================================================================================
+SUMMARY (counts)
+================================================================================
+  Internal navigation links ............. 38  (deduplicated routes used: 5)
+  External links (social, brand asset)... 4
+  Email links (mailto:) ................. 3
+  CTA buttons (link-wrapped) ............ 12
+  Mobile menu controls .................. 3
+  Form inputs ........................... 5
+  Form controls (select / checkbox / submit / reset) .... 4
+  FAQ accordion items ................... 6
+  Skip link (a11y) ...................... 1
+  Error-boundary action button .......... 1
+================================================================================

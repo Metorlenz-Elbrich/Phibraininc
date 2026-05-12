@@ -112,8 +112,8 @@ export default function MobileMenu() {
                 size="lg"
                 className="mt-6 w-full"
               >
-                <Link href="/contact">
-                  Start a project
+                <Link href={siteConfig.primaryCta.href}>
+                  {siteConfig.primaryCta.label}
                   <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                 </Link>
               </Button>

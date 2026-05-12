@@ -37,12 +37,12 @@ export default function CTASection() {
               <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
                 <Button asChild size="xl">
                   <Link href="/contact">
-                    Start a project
+                    Book a discovery call
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
                 </Button>
                 <Button asChild size="xl" variant="ghost">
-                  <Link href="/portfolio">Browse our work</Link>
+                  <Link href="/portfolio">View case studies</Link>
                 </Button>
               </div>
             </div>

@@ -77,8 +77,8 @@ export default function Navbar() {
               size="sm"
               className="hidden md:inline-flex"
             >
-              <Link href="/contact">
-                Start a project
+              <Link href={siteConfig.primaryCta.href}>
+                {siteConfig.primaryCta.label}
                 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </Button>

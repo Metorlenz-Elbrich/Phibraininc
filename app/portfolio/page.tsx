@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Reveal } from "@/components/effects/Reveal";
 import { GridBackground } from "@/components/effects/GridBackground";
@@ -7,16 +9,15 @@ import { ProjectVisual } from "@/components/sections/FeaturedWork";
 import CTASection from "@/components/sections/CTASection";
 
 export const metadata: Metadata = {
-  title: "Portfolio",
+  title: "Case studies",
   description:
-    "A selection of PhiBrain's recent product work across fintech, healthcare, logistics, e-commerce, real estate and SaaS.",
+    "A selection of PhiBrain's recent product work across fintech, healthcare, logistics, commerce, real estate and SaaS.",
   alternates: { canonical: "/portfolio" },
 };
 
 export default function PortfolioPage() {
   return (
     <>
-      {/* HERO */}
       <section className="relative isolate overflow-hidden pt-36 pb-20">
         <GridBackground fade="radial" />
         <div
@@ -31,30 +32,30 @@ export default function PortfolioPage() {
           <Reveal>
             <div className="mx-auto max-w-3xl text-center">
               <Badge variant="default" className="uppercase tracking-[0.18em]">
-                Portfolio
+                Case studies
               </Badge>
               <h1 className="mt-6 font-display text-display-xl font-semibold tracking-tight text-balance">
-                <span className="gradient-text-soft">Selected work,</span>{" "}
+                <span className="gradient-text-soft">Premium products,</span>{" "}
                 <span className="gradient-text">shipped end-to-end.</span>
               </h1>
               <p className="mt-6 text-lg leading-relaxed text-muted-foreground text-pretty">
                 Each project is a real partnership — strategy, design,
-                engineering and operations — represented here with the outcomes
-                that mattered to our partners.
+                engineering and operations — presented with the outcomes that
+                actually mattered to our partners.
               </p>
             </div>
           </Reveal>
         </div>
       </section>
 
-      {/* PROJECTS */}
       <section className="relative py-16 md:py-20">
-        <div className="container space-y-12">
+        <div className="container space-y-6">
           {PROJECTS.map((p, i) => (
             <Reveal key={p.slug} delay={i * 0.04}>
-              <article
-                id={p.slug}
-                className="relative grid scroll-mt-32 gap-8 overflow-hidden rounded-3xl border border-black/[0.06] bg-white/70 p-6 backdrop-blur-xl md:grid-cols-12 md:p-8 dark:border-white/[0.06] dark:bg-ink-900/60"
+              <Link
+                href={`/portfolio/${p.slug}`}
+                aria-label={`${p.shortTitle} — read the case study`}
+                className="group relative grid scroll-mt-32 gap-8 overflow-hidden rounded-3xl border border-black/[0.06] bg-white/70 p-6 backdrop-blur-xl transition-all hover:-translate-y-0.5 hover:shadow-elevation-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background md:grid-cols-12 md:p-8 dark:border-white/[0.06] dark:bg-ink-900/60"
               >
                 <div className={`md:col-span-5 ${i % 2 ? "md:order-2" : ""}`}>
                   <div className="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-muted-foreground">
@@ -65,7 +66,7 @@ export default function PortfolioPage() {
                     {p.title}
                   </h2>
                   <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                    {p.description}
+                    {p.summary}
                   </p>
                   <ul className="mt-6 grid grid-cols-3 gap-2">
                     {p.outcomes.map((o) => (
@@ -82,21 +83,18 @@ export default function PortfolioPage() {
                       </li>
                     ))}
                   </ul>
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {p.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="rounded-full border border-black/[0.06] bg-white/80 px-2.5 py-1 text-[11px] font-medium text-foreground/80 dark:border-white/[0.06] dark:bg-white/[0.04]"
-                      >
-                        {t}
-                      </span>
-                    ))}
+                  <div className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-brand-600 dark:text-brand-300">
+                    Read the case study
+                    <ArrowUpRight
+                      className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                      aria-hidden="true"
+                    />
                   </div>
                 </div>
                 <div className={`md:col-span-7 ${i % 2 ? "md:order-1" : ""}`}>
                   <ProjectVisual variant={p.visual} />
                 </div>
-              </article>
+              </Link>
             </Reveal>
           ))}
         </div>

@@ -1,33 +1,54 @@
 "use client";
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/effects/Reveal";
 
 const faqs = [
   {
-    q: "How does an engagement with PhiBrain start?",
-    a: "We start with a free 30-minute discovery call to understand your context, constraints and goals. From there we propose a phased plan with clear deliverables, a transparent budget and explicit success metrics.",
-  },
-  {
-    q: "Can you work with our existing engineering team?",
-    a: "Yes — we frequently embed within in-house teams. We adapt to your code review process, sprint cadence and architectural decisions. Knowledge transfer is part of every engagement, not an afterthought.",
-  },
-  {
     q: "What does pricing look like?",
-    a: "Pricing depends on scope, but most projects start at a fixed-price discovery phase, then convert to a monthly retainer or a milestone-based contract. We avoid hourly billing — it punishes efficiency.",
+    a: "Most engagements start with a fixed-price discovery phase to align on scope and deliverables, then convert to a milestone-based contract or a monthly retainer. We deliberately avoid hourly billing — it punishes efficiency. You'll always have a transparent, written budget before any implementation starts.",
   },
   {
-    q: "Do you handle hosting, deployment and maintenance?",
-    a: "We can. We deploy on Vercel, AWS or your existing cloud, and offer ongoing maintenance retainers covering security patching, performance, monitoring and feature delivery.",
+    q: "What are typical timelines?",
+    a: "Discovery sprints last one to three weeks. Production-grade MVPs ship in 8–16 weeks depending on complexity. Larger platforms are delivered as phased releases, with a working build in staging from week three.",
   },
   {
-    q: "How do you handle security and compliance?",
-    a: "Security is part of every phase. We follow OWASP Top 10 secure development principles, enforce strong HTTP headers, validate inputs server-side, and audit dependencies. For regulated industries we align with GDPR, HIPAA or SOC 2 controls.",
+    q: "How does collaboration work day-to-day?",
+    a: "You get a private Linear / Slack / Notion workspace, weekly progress demos and a single point of contact who is also writing code. We adapt to your sprint cadence and review process — there's no hand-off to junior or offshore teams.",
   },
   {
-    q: "Do you sign NDAs?",
-    a: "Of course. We sign mutual NDAs before any commercially sensitive discussion. Just ask.",
+    q: "Who owns the source code, design files and infrastructure?",
+    a: "You do. From day one. All repositories live in your GitHub organization, design files in your Figma workspace, and infrastructure in your cloud accounts. We never hold your assets hostage to keep you on retainer.",
+  },
+  {
+    q: "Do you handle maintenance, hosting and deployment?",
+    a: "Yes. We deploy on Vercel, AWS or your existing cloud, set up CI/CD, monitoring and alerting, and offer ongoing maintenance retainers covering security patching, performance, feature delivery and on-call response.",
+  },
+  {
+    q: "How do you approach security and compliance?",
+    a: "Security is a phase, not a checkbox. We follow OWASP Top 10 principles, enforce strong HTTP headers, validate inputs server-side, audit dependencies and run a dedicated security review before every go-live. For regulated industries we align with GDPR, HIPAA or SOC 2 controls.",
+  },
+  {
+    q: "Will you sign an NDA?",
+    a: "Of course. We sign mutual NDAs before any commercially sensitive discussion — including this one. Just ask, and we'll send you our standard template (or sign yours).",
+  },
+  {
+    q: "Can you work alongside our in-house engineering team?",
+    a: "Yes — we frequently embed within in-house teams. We respect your architectural decisions and review process, and knowledge transfer is part of every engagement, not an afterthought before we leave.",
+  },
+  {
+    q: "What stacks do you specialize in?",
+    a: "Our core is Next.js, React, TypeScript, TailwindCSS, Node.js / Bun, PostgreSQL and modern cloud platforms (Vercel, AWS, GCP, Cloudflare). For mobile we use React Native + Expo. We pick boring, well-supported tools — and use them with depth.",
+  },
+  {
+    q: "How fast will you respond to my first message?",
+    a: "Within one business day. Every serious enquiry gets a thoughtful, human response — not a templated reply or a calendar link.",
   },
 ];
 
@@ -44,11 +65,11 @@ export default function FAQ() {
             eyebrow="FAQ"
             title={
               <>
-                Answers to common{" "}
-                <span className="gradient-text">questions</span>
+                Answers to the questions{" "}
+                <span className="gradient-text">that close deals</span>
               </>
             }
-            description="If you have something we haven't covered here, the contact page is the fastest way to reach us."
+            description="If we haven't covered something below, the contact page is the fastest way to reach a senior engineer who can answer it."
           />
         </Reveal>
 

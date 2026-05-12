@@ -111,12 +111,16 @@ export default function ContactPage() {
               ))}
             </ul>
 
-            <p
-              id="privacy"
-              className="text-xs leading-relaxed text-muted-foreground"
-            >
-              Your data is processed solely to respond to your enquiry. We never
-              sell or share it. You can request deletion at any time by emailing{" "}
+            <p className="text-xs leading-relaxed text-muted-foreground">
+              Your data is processed solely to respond to your enquiry — read
+              the full{" "}
+              <Link
+                href="/privacy"
+                className="text-foreground underline-offset-4 hover:underline"
+              >
+                privacy policy
+              </Link>
+              . You can request deletion at any time by emailing{" "}
               <Link
                 href={`mailto:${siteConfig.contactEmail}`}
                 className="text-foreground underline-offset-4 hover:underline"

@@ -1,12 +1,13 @@
 import Link from "next/link";
-import { Github, Linkedin, Twitter, ArrowUpRight, Mail } from "lucide-react";
+import { Github, Linkedin, Twitter, ArrowUpRight, Mail, ShieldCheck } from "lucide-react";
 import Logo from "@/components/brand/Logo";
 import { siteConfig } from "@/lib/site";
 
 const footerColumns = [
   {
-    title: "Studio",
+    title: "Sitemap",
     links: [
+      { label: "Home", href: "/" },
       { label: "About", href: "/about" },
       { label: "Services", href: "/services" },
       { label: "Portfolio", href: "/portfolio" },
@@ -16,19 +17,24 @@ const footerColumns = [
   {
     title: "Capabilities",
     links: [
-      { label: "Web applications", href: "/services#web" },
-      { label: "Mobile apps", href: "/services#mobile" },
-      { label: "UI/UX design", href: "/services#design" },
-      { label: "API engineering", href: "/services#api" },
-      { label: "Cloud platforms", href: "/services#cloud" },
+      { label: "Secure web platforms", href: "/services#web" },
+      { label: "Cross-platform mobile", href: "/services#mobile" },
+      { label: "UI/UX product design", href: "/services#design" },
+      { label: "Backend & API engineering", href: "/services#api" },
+      { label: "Cloud integration", href: "/services#cloud" },
+      { label: "Software modernization", href: "/services#modernization" },
+      { label: "Maintenance & support", href: "/services#support" },
     ],
   },
   {
-    title: "Resources",
+    title: "Case studies",
     links: [
-      { label: "Process", href: "/#process" },
-      { label: "FAQ", href: "/#faq" },
-      { label: "Brand assets", href: "/phibrain-logo.svg" },
+      { label: "Orbit · Fintech", href: "/portfolio/orbit" },
+      { label: "Atlas · Logistics", href: "/portfolio/atlas" },
+      { label: "Clinique · Healthcare", href: "/portfolio/clinique" },
+      { label: "Vela · Commerce", href: "/portfolio/vela" },
+      { label: "Domaine · Real estate", href: "/portfolio/domaine" },
+      { label: "Lumen · SaaS", href: "/portfolio/lumen" },
     ],
   },
 ];
@@ -50,7 +56,7 @@ export default function Footer() {
       />
       <div className="container py-16">
         <div className="grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-4">
             <Logo />
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-muted-foreground">
               {siteConfig.description}
@@ -63,11 +69,15 @@ export default function Footer() {
               {siteConfig.contactEmail}
               <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
             </Link>
+            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-brand-500/20 bg-brand-500/[0.06] px-3 py-1.5 text-xs font-medium text-brand-700 dark:text-brand-300">
+              <ShieldCheck className="h-3.5 w-3.5" aria-hidden="true" />
+              Secure-by-design · OWASP-aligned
+            </div>
           </div>
 
           <nav
             aria-label="Footer"
-            className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-7"
+            className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:col-span-8"
           >
             {footerColumns.map((col) => (
               <div key={col.title}>
@@ -91,11 +101,26 @@ export default function Footer() {
           </nav>
         </div>
 
-        <div className="mt-14 flex flex-col items-start justify-between gap-6 border-t border-black/[0.06] pt-8 dark:border-white/[0.06] sm:flex-row sm:items-center">
-          <p className="text-xs text-muted-foreground">
-            © {year} {siteConfig.legalName}. All rights reserved.
-          </p>
-          <ul className="flex items-center gap-2">
+        <div className="mt-14 grid gap-6 border-t border-black/[0.06] pt-8 dark:border-white/[0.06] md:grid-cols-2 md:items-center">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
+            <p className="text-xs text-muted-foreground">
+              © {year} {siteConfig.legalName}. All rights reserved.
+            </p>
+            <ul className="flex flex-wrap items-center gap-4 text-xs">
+              {siteConfig.legal.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <ul className="flex items-center gap-2 md:justify-end">
             {socials.map(({ Icon, href, label }) => (
               <li key={label}>
                 <a

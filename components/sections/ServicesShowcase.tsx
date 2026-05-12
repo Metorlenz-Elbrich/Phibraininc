@@ -1,6 +1,6 @@
 import Link from "next/link";
 import {
-  Globe2,
+  ShieldCheck,
   Smartphone,
   PenTool,
   Cable,
@@ -8,67 +8,112 @@ import {
   RefreshCw,
   Wrench,
   ArrowUpRight,
+  type LucideIcon,
 } from "lucide-react";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/effects/Reveal";
 import { cn } from "@/lib/utils";
 
-export const services = [
+export type Service = {
+  id: string;
+  title: string;
+  description: string;
+  Icon: LucideIcon;
+  accent: string;
+  bullets: string[];
+};
+
+export const services: Service[] = [
   {
     id: "web",
-    title: "Web applications",
+    title: "Secure web platforms",
     description:
-      "Modern, conversion-driven web products built on Next.js, TypeScript and TailwindCSS — from marketing sites to complex SaaS dashboards.",
-    Icon: Globe2,
+      "Production-grade Next.js applications engineered for performance, accessibility and OWASP-aligned security — from marketing surfaces to mission-critical SaaS.",
+    Icon: ShieldCheck,
     accent: "from-brand-500/30 to-brand-500/0",
+    bullets: [
+      "Next.js · React · TypeScript",
+      "Hardened HTTP headers, CSP, CSRF",
+      "Edge rendering & ISR",
+    ],
   },
   {
     id: "mobile",
-    title: "Mobile applications",
+    title: "Cross-platform mobile products",
     description:
-      "Native-grade iOS and Android experiences with React Native and Expo, including offline-first sync and biometric authentication.",
+      "Native-grade iOS and Android experiences shipped on a single codebase. Biometric auth, offline-first sync, deep-link integrations and store-ready CI/CD.",
     Icon: Smartphone,
     accent: "from-violet-500/25 to-brand-500/0",
+    bullets: [
+      "React Native · Expo",
+      "Offline-first sync · Biometric auth",
+      "Store submission & OTA updates",
+    ],
   },
   {
     id: "design",
-    title: "UI / UX design",
+    title: "UI / UX product design",
     description:
-      "Premium product design systems — wireframing, interaction design, motion, design tokens and component libraries that scale.",
+      "Premium product design systems — research, IA, interaction design, motion and component libraries that scale across teams and brands.",
     Icon: PenTool,
     accent: "from-fuchsia-500/25 to-brand-500/0",
+    bullets: [
+      "Design tokens & systems",
+      "Prototyping in Figma",
+      "Accessibility-first UX",
+    ],
   },
   {
     id: "api",
-    title: "API engineering",
+    title: "Backend & API engineering",
     description:
-      "Secure, observable REST and GraphQL APIs with strong typing, rate limiting, audit logging and clean integrations.",
+      "Typed, observable APIs with rate limiting, audit logging, role-based access and clean third-party integrations — built to be safe under real-world load.",
     Icon: Cable,
     accent: "from-emerald-500/25 to-brand-500/0",
+    bullets: [
+      "REST · GraphQL · tRPC",
+      "Authn / Authz · RBAC",
+      "Audit trails & metering",
+    ],
   },
   {
     id: "cloud",
-    title: "Cloud platforms",
+    title: "Cloud integration",
     description:
-      "Production-ready infrastructure on Vercel, AWS and GCP. CI/CD, infra-as-code, monitoring and zero-downtime deploys.",
+      "Production infrastructure on Vercel, AWS and GCP. Infra-as-code, CI/CD pipelines, observability, secrets management and zero-downtime deploys.",
     Icon: Cloud,
     accent: "from-sky-500/25 to-brand-500/0",
+    bullets: [
+      "Vercel · AWS · GCP · Cloudflare",
+      "Terraform · GitHub Actions",
+      "OpenTelemetry & Sentry",
+    ],
   },
   {
     id: "modernization",
     title: "Software modernization",
     description:
-      "Lift legacy stacks to modern frameworks without breaking the business. Incremental migrations, strangler patterns, refactors.",
+      "Lift legacy stacks to modern frameworks without disrupting the business. Incremental migrations, strangler patterns, refactors and risk-managed rewrites.",
     Icon: RefreshCw,
     accent: "from-amber-500/25 to-brand-500/0",
+    bullets: [
+      "Strangler-fig migrations",
+      "Monolith → modular",
+      "Risk-managed rewrites",
+    ],
   },
   {
     id: "support",
     title: "Maintenance & support",
     description:
-      "Long-term partnership: patching, performance, security upgrades and feature delivery on a steady cadence.",
+      "A long-term engineering partnership: patching, performance, security upgrades and feature delivery on a steady, transparent cadence with SLAs.",
     Icon: Wrench,
     accent: "from-rose-500/25 to-brand-500/0",
+    bullets: [
+      "Quarterly security upgrades",
+      "Performance SLAs",
+      "Feature delivery on retainer",
+    ],
   },
 ];
 
@@ -89,11 +134,11 @@ export default function ServicesShowcase({ variant = "home" }: { variant?: Varia
             eyebrow="Services"
             title={
               <>
-                A full‑stack studio for{" "}
-                <span className="gradient-text">premium products</span>
+                A senior product studio for{" "}
+                <span className="gradient-text">premium software</span>
               </>
             }
-            description="From discovery to launch, we cover every layer of modern software — design, engineering, infrastructure and post-launch evolution."
+            description="From discovery to long-term operation, we deliver every layer of modern software — engineered with security and scale baked in from day one."
           />
         </Reveal>
 
@@ -108,16 +153,16 @@ export default function ServicesShowcase({ variant = "home" }: { variant?: Varia
             <Reveal delay={list.length * 0.05}>
               <Link
                 href="/services"
-                className="group relative flex h-full min-h-[260px] flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-black/10 bg-white/40 p-8 text-center transition-colors hover:border-brand-500/40 hover:bg-brand-500/[0.04] dark:border-white/[0.08] dark:bg-white/[0.02]"
+                className="group relative flex h-full min-h-[260px] flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-black/10 bg-white/40 p-8 text-center transition-colors hover:border-brand-500/40 hover:bg-brand-500/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background dark:border-white/[0.08] dark:bg-white/[0.02]"
               >
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-500/10 text-brand-500 transition-transform group-hover:scale-110">
                   <ArrowUpRight className="h-5 w-5" aria-hidden="true" />
                 </div>
                 <div className="font-display text-base font-semibold tracking-tight">
-                  See all services
+                  See all capabilities
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  Full capability map & engagements
+                  Full service map &amp; engagement models
                 </div>
               </Link>
             </Reveal>
@@ -128,15 +173,19 @@ export default function ServicesShowcase({ variant = "home" }: { variant?: Varia
   );
 }
 
-function ServiceCard({ service }: { service: (typeof services)[number] }) {
+function ServiceCard({ service }: { service: Service }) {
   const Icon = service.Icon;
+  const href = `/services#${service.id}`;
   return (
-    <article
+    <Link
       id={service.id}
+      href={href}
+      aria-label={`${service.title} — learn more`}
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white/70 p-7 backdrop-blur-xl transition-all duration-300",
+        "group relative flex h-full flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white/70 p-7 backdrop-blur-xl transition-all duration-300 scroll-mt-32",
         "shadow-elevation-1 hover:-translate-y-0.5 hover:shadow-elevation-3",
         "dark:border-white/[0.06] dark:bg-ink-900/60",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
       )}
     >
       <div
@@ -158,17 +207,26 @@ function ServiceCard({ service }: { service: (typeof services)[number] }) {
       <h3 className="mt-6 font-display text-lg font-semibold tracking-tight">
         {service.title}
       </h3>
-      <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
         {service.description}
       </p>
 
+      <ul className="mt-5 space-y-1.5 text-xs text-foreground/70">
+        {service.bullets.map((b) => (
+          <li key={b} className="flex items-center gap-2">
+            <span aria-hidden="true" className="h-1 w-1 rounded-full bg-brand-500" />
+            {b}
+          </li>
+        ))}
+      </ul>
+
       <div className="mt-6 flex items-center gap-1.5 text-sm font-medium text-brand-600 dark:text-brand-300">
-        Learn more
+        Discuss this capability
         <ArrowUpRight
           className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
           aria-hidden="true"
         />
       </div>
-    </article>
+    </Link>
   );
 }

@@ -1,4 +1,13 @@
-import { Compass, PenTool, Code2, Rocket, Activity } from "lucide-react";
+import {
+  Compass,
+  Lightbulb,
+  LayoutGrid,
+  PenTool,
+  Code2,
+  ShieldCheck,
+  Rocket,
+  Activity,
+} from "lucide-react";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/effects/Reveal";
 
@@ -8,35 +17,56 @@ const steps = [
     step: "01",
     title: "Discovery",
     description:
-      "We map your business goals, users and constraints. Output: a sharp brief, success metrics, and a phased delivery plan.",
+      "We map your business goals, users, constraints and existing systems. Output: a sharp brief, success metrics and a risk-aware delivery plan.",
+  },
+  {
+    Icon: Lightbulb,
+    step: "02",
+    title: "Product strategy",
+    description:
+      "We translate intent into a prioritized roadmap. What ships first, what gets cut, what gets measured — agreed upfront, written down.",
+  },
+  {
+    Icon: LayoutGrid,
+    step: "03",
+    title: "Architecture",
+    description:
+      "We design systems for the long run: typed contracts, scalable data models, observability hooks and clean integration boundaries.",
   },
   {
     Icon: PenTool,
-    step: "02",
+    step: "04",
     title: "Design",
     description:
-      "Information architecture, prototypes and a design system tuned to your brand — built collaboratively in Figma.",
+      "Information architecture, prototypes and a design system tuned to your brand — built collaboratively, validated with users early.",
   },
   {
     Icon: Code2,
-    step: "03",
-    title: "Engineering",
+    step: "05",
+    title: "Development",
     description:
-      "Typed, tested code shipped weekly. You see progress in staging, not slides. Pull requests, not promises.",
+      "Typed, tested code shipped continuously to staging. You see progress in pull requests, not slides — every week, with a working build.",
+  },
+  {
+    Icon: ShieldCheck,
+    step: "06",
+    title: "Security review",
+    description:
+      "OWASP-aligned threat modelling, dependency audits, hardened headers, secret scanning and a pen-test ready posture before any go-live.",
   },
   {
     Icon: Rocket,
-    step: "04",
-    title: "Launch",
+    step: "07",
+    title: "Deployment",
     description:
-      "Performance, accessibility and security audited before go-live. We handle the launch playbook, you handle the announcement.",
+      "Performance, accessibility and SLO audits before launch. We own the rollout playbook so your team owns the announcement.",
   },
   {
     Icon: Activity,
-    step: "05",
-    title: "Evolve",
+    step: "08",
+    title: "Maintenance",
     description:
-      "Ongoing iteration informed by analytics, user feedback and engineering health metrics. We stay your partner.",
+      "Ongoing iteration informed by analytics, user feedback, engineering health and security signals. We stay your long-term partner.",
   },
 ];
 
@@ -50,20 +80,20 @@ export default function Process() {
       <div className="container">
         <Reveal>
           <SectionHeading
-            eyebrow="Process"
+            eyebrow="Engineering process"
             title={
               <>
-                A clear path from idea to{" "}
+                Eight repeatable phases from idea to{" "}
                 <span className="gradient-text">measurable impact</span>
               </>
             }
-            description="Five repeatable phases — each with concrete deliverables and decision points. No surprises, no slipped scope."
+            description="No surprises. Each phase has explicit deliverables, decision points and quality gates — including a dedicated security review before go-live."
           />
         </Reveal>
 
-        <ol className="relative mt-16 grid gap-px overflow-hidden rounded-3xl border border-black/[0.06] bg-black/[0.06] md:grid-cols-5 dark:border-white/[0.06] dark:bg-white/[0.04]">
+        <ol className="relative mt-16 grid gap-px overflow-hidden rounded-3xl border border-black/[0.06] bg-black/[0.06] sm:grid-cols-2 lg:grid-cols-4 dark:border-white/[0.06] dark:bg-white/[0.04]">
           {steps.map(({ Icon, step, title, description }, i) => (
-            <Reveal key={step} delay={i * 0.06} as="li">
+            <Reveal key={step} delay={i * 0.05} as="li">
               <div className="group relative h-full bg-background p-7 transition-colors hover:bg-brand-500/[0.025]">
                 <div className="flex items-center justify-between">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-brand-500/20 bg-brand-500/10 text-brand-500 transition-transform group-hover:scale-105">

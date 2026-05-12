@@ -6,20 +6,21 @@ import { CSRF_COOKIE, constantTimeEquals } from "@/lib/security";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-const MAX_BODY_BYTES = 32 * 1024; // 32 KB — generous but bounded
-const MIN_FILL_MS = 2_000; // sub-2-second submissions are bots
+const MAX_BODY_BYTES = 64 * 1024; // 64 KB — accommodates the extended form
+const MIN_FILL_MS = 2_500; // sub-2.5s submissions are bots
 
 /**
- * Secure contact endpoint.
+ * Secure contact endpoint — defence-in-depth pipeline:
  *
- * Defence-in-depth pipeline:
- *   1. Strict body-size cap
- *   2. CSRF (double-submit cookie) check
- *   3. Per-IP rate limit (5 / hour)
- *   4. Time-on-page heuristic
- *   5. Honeypot field
- *   6. Zod schema validation + sanitization
- *   7. HTML-escape outputs before any rendering / email
+ *   1. Strict body-size cap                          (DoS / over-post)
+ *   2. Content-Type allowlist                        (CSRF / browser confusion)
+ *   3. CSRF double-submit cookie                     (cross-site forging)
+ *   4. Per-IP rate limit (5 / hour)                  (abuse throttling)
+ *   5. Per-IP+UA fingerprint rate limit (3 / 15 min) (bot mitigation)
+ *   6. Time-on-page heuristic                        (bot mitigation)
+ *   7. Honeypot field                                (bot mitigation)
+ *   8. Zod schema validation + sanitization          (input validation)
+ *   9. HTML-escape outputs before any rendering / email
  */
 export async function POST(req: NextRequest) {
   // 1. Bound payload size
@@ -28,6 +29,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       { ok: false, message: "Payload too large." },
       { status: 413 },
+    );
+  }
+
+  // 2. Restrict content type — browsers never send anything else from fetch.
+  const contentType = req.headers.get("content-type") ?? "";
+  if (!contentType.toLowerCase().includes("application/json")) {
+    return NextResponse.json(
+      { ok: false, message: "Unsupported content type." },
+      { status: 415 },
     );
   }
 
@@ -41,7 +51,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 2. CSRF — cookie value must match submitted field
+  // 3. CSRF — cookie value must match submitted field
   const cookieToken = req.cookies.get(CSRF_COOKIE)?.value ?? "";
   const submittedToken =
     raw && typeof raw === "object" && "csrf" in raw
@@ -54,22 +64,29 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 3. Per-IP rate limit
+  // 4 + 5. Layered rate limit: a coarse per-IP bucket and a tighter
+  // IP+User-Agent fingerprint bucket. The fingerprint catches single-IP
+  // scripted abuse that rotates User-Agents far faster than the coarse limit.
   const ip = clientIpFromHeaders(req.headers);
-  const limit = rateLimit(`contact:${ip}`, 5, 60 * 60 * 1000);
-  if (!limit.success) {
+  const ua = (req.headers.get("user-agent") ?? "anon").slice(0, 80);
+  const fingerprint = `${ip}|${ua}`;
+
+  const ipLimit = rateLimit(`contact:ip:${ip}`, 5, 60 * 60 * 1000);
+  const fpLimit = rateLimit(`contact:fp:${fingerprint}`, 3, 15 * 60 * 1000);
+  if (!ipLimit.success || !fpLimit.success) {
+    const reset = Math.max(ipLimit.resetAt, fpLimit.resetAt);
     return NextResponse.json(
       { ok: false, message: "Too many requests. Please try again later." },
       {
         status: 429,
         headers: {
-          "Retry-After": String(Math.ceil((limit.resetAt - Date.now()) / 1000)),
+          "Retry-After": String(Math.ceil((reset - Date.now()) / 1000)),
         },
       },
     );
   }
 
-  // 4 + 5 + 6. Validate (honeypot + ts checks are inside the schema too)
+  // 6 + 7 + 8. Validate (honeypot + ts checks are inside the schema too)
   const parsed = ContactFormSchema.safeParse(raw);
   if (!parsed.success) {
     return NextResponse.json(
@@ -84,21 +101,23 @@ export async function POST(req: NextRequest) {
 
   const data = parsed.data;
 
-  // Time-on-page heuristic
-  if (
-    typeof data._ts === "number" &&
-    Date.now() - data._ts < MIN_FILL_MS
-  ) {
-    // Pretend success — never tell a bot how it was detected
+  // Time-on-page heuristic — silently drop sub-threshold submissions.
+  if (typeof data._ts === "number" && Date.now() - data._ts < MIN_FILL_MS) {
     return NextResponse.json({ ok: true, message: "Thanks — we'll be in touch." });
   }
 
-  // 7. Build the safe internal payload (e.g., for email / queue / DB)
+  // 9. Build the safe internal payload (e.g., for email / queue / DB)
   const safePayload = {
     name: escapeHtml(data.name),
     email: escapeHtml(data.email),
     company: data.company ? escapeHtml(data.company) : null,
-    budget: data.budget ?? null,
+    phone: data.phone ?? null,
+    service: data.service,
+    projectType: data.projectType,
+    companySize: data.companySize ?? null,
+    budget: data.budget,
+    timeline: data.timeline,
+    preferredContact: data.preferredContact,
     message: escapeHtml(data.message),
     submittedAt: new Date().toISOString(),
     ip,
@@ -113,13 +132,20 @@ export async function POST(req: NextRequest) {
 
   return NextResponse.json({
     ok: true,
-    message: "Thanks — we'll get back to you within one business day.",
+    message: "Thanks — a senior engineer will reply within one business day.",
   });
 }
 
-export async function GET() {
+// Block every other method explicitly so attackers can't probe behaviour.
+function methodNotAllowed() {
   return NextResponse.json(
     { ok: false, message: "Method not allowed." },
     { status: 405, headers: { Allow: "POST" } },
   );
 }
+
+export const GET = methodNotAllowed;
+export const PUT = methodNotAllowed;
+export const PATCH = methodNotAllowed;
+export const DELETE = methodNotAllowed;
+export const OPTIONS = methodNotAllowed;
