@@ -123,7 +123,7 @@ export default function ContactForm() {
       {/* honeypot — visually hidden, off-screen, but reachable to bots scraping markup */}
       <div aria-hidden="true" className="absolute -left-[10000px] h-0 w-0 overflow-hidden">
         <label>
-          Don't fill this in
+          Don&apos;t fill this in
           <input
             type="text"
             name="_hp"

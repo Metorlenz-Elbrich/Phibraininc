@@ -46,7 +46,7 @@ export default function ContactPage() {
               Contact
             </Badge>
             <h1 className="mt-6 font-display text-display-xl font-semibold tracking-tight text-balance">
-              <span className="gradient-text-soft">Let's build something</span>{" "}
+              <span className="gradient-text-soft">Let&apos;s build something</span>{" "}
               <span className="gradient-text">worth shipping.</span>
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground text-pretty">

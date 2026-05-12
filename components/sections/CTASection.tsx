@@ -27,12 +27,12 @@ export default function CTASection() {
                 className="font-display text-display-lg font-semibold tracking-tight text-balance"
               >
                 Got an idea worth building?{" "}
-                <span className="gradient-text">Let's talk.</span>
+                <span className="gradient-text">Let&apos;s talk.</span>
               </h2>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground text-pretty">
-                We're selective about who we work with — and we take every
-                conversation seriously. Tell us what you're building, and we'll
-                respond within 24 hours.
+                We&apos;re selective about who we work with — and we take every
+                conversation seriously. Tell us what you&apos;re building, and
+                we&apos;ll respond within 24 hours.
               </p>
               <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
                 <Button asChild size="xl">

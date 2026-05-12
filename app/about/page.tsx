@@ -97,8 +97,9 @@ export default function AboutPage() {
               </h1>
               <p className="mt-6 text-lg leading-relaxed text-muted-foreground text-pretty">
                 PhiBrain was founded on a simple idea — most software fails not
-                because it's hard to build, but because it's built without taste,
-                without rigor, or without ownership. We exist to fix that.
+                because it&apos;s hard to build, but because it&apos;s built
+                without taste, without rigor, or without ownership. We exist to
+                fix that.
               </p>
             </div>
           </Reveal>
@@ -116,16 +117,17 @@ export default function AboutPage() {
           <Reveal className="space-y-5 text-base leading-relaxed text-muted-foreground lg:col-span-7">
             <p>
               PhiBrain was started by a small team of engineers and designers
-              who'd seen, again and again, the same pattern: products launched
-              with great intent but built on shaky foundations, slowed by
-              technical debt within a year, and quietly abandoned within two.
+              who&apos;d seen, again and again, the same pattern: products
+              launched with great intent but built on shaky foundations, slowed
+              by technical debt within a year, and quietly abandoned within
+              two.
             </p>
             <p>
               We started PhiBrain to be the studio we always wished we could
-              hire — small enough to care, senior enough to ship, and structured
-              enough to scale with our partners. No PMs handing off Figma to
-              juniors. No layers of account managers. Just the people doing the
-              work, talking to the people who'll use it.
+              hire — small enough to care, senior enough to ship, and
+              structured enough to scale with our partners. No PMs handing off
+              Figma to juniors. No layers of account managers. Just the people
+              doing the work, talking to the people who&apos;ll use it.
             </p>
             <p>
               Today, we work with founders, operators and engineering teams

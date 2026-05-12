@@ -21,11 +21,11 @@ export default function NotFound() {
             404
           </div>
           <h1 className="mt-4 font-display text-3xl font-semibold tracking-tight md:text-4xl">
-            We can't find that page.
+            We can&apos;t find that page.
           </h1>
           <p className="mt-4 max-w-md text-base leading-relaxed text-muted-foreground">
-            The link may be broken, or the page may have moved. Let's get you
-            back somewhere useful.
+            The link may be broken, or the page may have moved. Let&apos;s get
+            you back somewhere useful.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Button asChild size="lg">
