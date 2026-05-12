@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 220 6% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 6% 10%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 6% 40%;
+
+    --primary: 198 75% 52%;
+    --primary-foreground: 0 0% 100%;
+
+    --accent: 198 60% 95%;
+    --accent-foreground: 198 75% 25%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 198 75% 52%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 220 8% 5%;
+    --foreground: 0 0% 98%;
+
+    --card: 220 8% 8%;
+    --card-foreground: 0 0% 98%;
+
+    --muted: 220 6% 14%;
+    --muted-foreground: 220 6% 65%;
+
+    --primary: 198 75% 56%;
+    --primary-foreground: 220 8% 5%;
+
+    --accent: 198 40% 20%;
+    --accent-foreground: 198 80% 88%;
+
+    --destructive: 0 62% 48%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 6% 18%;
+    --input: 220 6% 18%;
+    --ring: 198 75% 56%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+  }
+
+  ::selection {
+    @apply bg-brand-500/25 text-foreground;
+  }
+
+  /* Focus ring — accessible & on-brand */
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-background rounded-sm;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .bg-noise {
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-br from-brand-400 via-brand-500 to-brand-700 bg-clip-text text-transparent;
+  }
+
+  .gradient-text-soft {
+    background: linear-gradient(135deg, #0c0d0f 0%, #43464c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .dark .gradient-text-soft {
+    background: linear-gradient(135deg, #ffffff 0%, #b6b8bd 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Subtle inner glass — used on premium cards */
+  .glass {
+    @apply bg-white/70 dark:bg-ink-900/60 backdrop-blur-xl border border-black/[0.06] dark:border-white/[0.06];
+  }
+
+  .glass-strong {
+    @apply bg-white/80 dark:bg-ink-900/80 backdrop-blur-2xl border border-black/[0.08] dark:border-white/[0.08];
+  }
+
+  /* Conic spin used for premium ring borders */
+  .conic-border {
+    background: conic-gradient(
+      from 180deg at 50% 50%,
+      transparent 0deg,
+      #29abe2 60deg,
+      transparent 180deg,
+      #67c2e9 240deg,
+      transparent 360deg
+    );
+  }
+
+  .mask-radial-fade {
+    mask-image: radial-gradient(circle at center, black 40%, transparent 75%);
+  }
+
+  .mask-fade-bottom {
+    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  }
+}
+
+/* Reduce motion respectfully */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

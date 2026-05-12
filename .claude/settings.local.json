@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem \"C:\\\\Projet\\\\site phi 2\" -Force -ErrorAction SilentlyContinue; if \\($?\\) { Write-Output \"---\"; \\(Get-Item \"C:\\\\Projet\\\\site phi 2\"\\).FullName })",
+      "PowerShell($bytes = [System.IO.File]::ReadAllBytes\\(\"C:\\\\Projet\\\\site phi 2\\\\lib\\\\validation.ts\"\\); $start = 0; for \\($i = 0; $i -lt $bytes.Length; $i++\\) { if \\($bytes[$i] -eq 0x4E -and $bytes[$i+1] -eq 0x4F -and $bytes[$i+2] -eq 0x5F\\) { $start = $i; break } }; $bytes[$start..\\($start+60\\)] | ForEach-Object { \"{0:X2}\" -f $_ } | Select-Object -First 60)",
+      "PowerShell($bytes = [System.IO.File]::ReadAllBytes\\(\"C:\\\\Projet\\\\site phi 2\\\\lib\\\\validation.ts\"\\); $bad = 0; foreach \\($b in $bytes\\) { if \\($b -lt 0x20 -and $b -ne 0x09 -and $b -ne 0x0A -and $b -ne 0x0D\\) { $bad++ } }; \"Control bytes \\(excluding tab/CR/LF\\): $bad\")",
+      "PowerShell(Get-ChildItem \"C:\\\\Projet\\\\site phi 2\" -Recurse -File -Force | Where-Object { $_.FullName -notmatch \"node_modules|\\\\.next|\\\\.claude\" } | Sort-Object FullName | ForEach-Object { $_.FullName.Replace\\(\"C:\\\\Projet\\\\site phi 2\\\\\", \"\"\\) })"
+    ]
+  }
+}
